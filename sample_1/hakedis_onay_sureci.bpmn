@@ -21,7 +21,7 @@
       </bpmn:documentation>
       <bpmn:extensionElements>
         <spiffworkflow:properties>
-          <spiffworkflow:property name="formJsonSchemaFilename" value="forms/hakedis_giris.json" />
+          <spiffworkflow:property name="formJsonSchemaFilename" value="hakedis_giris.json" />
         </spiffworkflow:properties>
         <spiffworkflow:instructionsForEndUser><![CDATA[
 Hakediş talebini eksiksiz hazırlayın.
@@ -49,7 +49,7 @@ Zorunlu dosyalar:
       </bpmn:documentation>
       <bpmn:extensionElements>
         <spiffworkflow:properties>
-          <spiffworkflow:property name="formJsonSchemaFilename" value="forms/hse_kontrol.json" />
+          <spiffworkflow:property name="formJsonSchemaFilename" value="hse_kontrol.json" />
         </spiffworkflow:properties>
         <spiffworkflow:instructionsForEndUser><![CDATA[
 Saha hakediş bilgilerini inceleyin:
@@ -78,7 +78,7 @@ Saha hakediş bilgilerini inceleyin:
       </bpmn:documentation>
       <bpmn:extensionElements>
         <spiffworkflow:properties>
-          <spiffworkflow:property name="formJsonSchemaFilename" value="forms/pm_onay.json" />
+          <spiffworkflow:property name="formJsonSchemaFilename" value="pm_onay.json" />
         </spiffworkflow:properties>
         <spiffworkflow:instructionsForEndUser><![CDATA[
 Saha ve İSG aşaması özeti:
@@ -124,7 +124,7 @@ Teknik uygunluk, metraj uygunluğu ve PM revize hakediş tutarını girerek onay
       </bpmn:documentation>
       <bpmn:extensionElements>
         <spiffworkflow:properties>
-          <spiffworkflow:property name="formJsonSchemaFilename" value="forms/finans_kontrol.json" />
+          <spiffworkflow:property name="formJsonSchemaFilename" value="finans_kontrol.json" />
         </spiffworkflow:properties>
         <spiffworkflow:instructionsForEndUser><![CDATA[
 PM onayı sonrası finans ön kontrolünü tamamlayın.
@@ -163,7 +163,7 @@ Fatura bilgilerini, cari hesap mutabakatını, yasal kesintileri, KDV tutarını
       </bpmn:documentation>
       <bpmn:extensionElements>
         <spiffworkflow:properties>
-          <spiffworkflow:property name="formJsonSchemaFilename" value="forms/gm_onay.json" />
+          <spiffworkflow:property name="formJsonSchemaFilename" value="gm_onay.json" />
         </spiffworkflow:properties>
         <spiffworkflow:instructionsForEndUser><![CDATA[
 Final onay öncesi özet:

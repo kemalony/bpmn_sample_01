@@ -1,6 +1,4 @@
 {
-  "id": "insaat_hakedis_sureci",
-  "process_id": "insaat_hakedis_sureci",
   "display_name": "İnşaat Hakediş Kontrol ve Onay Süreci",
   "description": "İnşaat hakediş taleplerinin sözleşme, metraj, İSG, teknik onay, finansal ön kontrol ve GM/CFO final onayı ile uçtan uca yürütülmesi.",
   "primary_file_name": "hakedis_onay_sureci.bpmn",
