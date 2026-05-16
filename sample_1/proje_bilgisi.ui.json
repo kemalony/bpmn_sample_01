@@ -1,0 +1,119 @@
+{
+  "ui:classNames": "modern-process-form project-info-form",
+  "ui:field": "LayoutGridField",
+  "ui:layoutGrid": {
+    "ui:row": {
+      "spacing": 2,
+      "sx": {
+        "p": 2.5,
+        "borderRadius": "18px",
+        "background": "linear-gradient(135deg, #0f172a 0%, #172554 48%, #111827 100%)",
+        "border": "1px solid rgba(148, 163, 184, 0.24)",
+        "boxShadow": "0 22px 55px rgba(2, 6, 23, 0.28)",
+        "& .MuiFormControl-root, & .MuiTextField-root": {
+          "width": "100%"
+        },
+        "& .MuiInputBase-root": {
+          "backgroundColor": "rgba(255, 255, 255, 0.08)",
+          "borderRadius": "12px",
+          "color": "#f8fafc"
+        },
+        "& input, & textarea": {
+          "color": "#f8fafc"
+        },
+        "& .MuiInputLabel-root, & .MuiFormLabel-root, & .MuiTypography-root": {
+          "color": "#e2e8f0"
+        },
+        "& .MuiFormHelperText-root": {
+          "color": "#94a3b8"
+        },
+        "& .MuiOutlinedInput-notchedOutline": {
+          "borderColor": "rgba(148, 163, 184, 0.38)"
+        },
+        "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+          "borderColor": "#38bdf8"
+        }
+      },
+      "children": [
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 8
+            },
+            "children": [
+              "proje_adi"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 4
+            },
+            "children": [
+              "proje_kodu"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 4
+            },
+            "children": [
+              "proje_lokasyonu"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 4
+            },
+            "children": [
+              "isveren_firma"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 4
+            },
+            "children": [
+              "proje_sorumlusu"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "ui:order": [
+    "proje_adi",
+    "proje_kodu",
+    "proje_lokasyonu",
+    "isveren_firma",
+    "proje_sorumlusu"
+  ],
+  "proje_adi": {
+    "ui:autofocus": true,
+    "ui:placeholder": "Örn. Kuleli Konakları"
+  },
+  "proje_kodu": {
+    "ui:placeholder": "PRJ-2026-001"
+  },
+  "proje_lokasyonu": {
+    "ui:placeholder": "İl / ilçe / şantiye bölgesi"
+  },
+  "isveren_firma": {
+    "ui:placeholder": "İşveren firma ünvanı"
+  },
+  "proje_sorumlusu": {
+    "ui:placeholder": "Proje müdürü veya sorumlu kişi"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "title": "Taşeron Firma Bilgisi",
+  "description": "Hakediş talebini oluşturan taşeron firma bilgisinin girilmesi.",
+  "type": "object",
+  "properties": {
+    "taseron_firma": {
+      "type": "string",
+      "title": "Taşeron Firma",
+      "description": "Hakediş talebini yapan taşeron firma ünvanı."
+    },
+    "taseron_vergi_no": {
+      "type": "string",
+      "title": "Vergi No",
+      "pattern": "^[0-9]{10,11}$"
+    },
+    "taseron_yetkili": {
+      "type": "string",
+      "title": "Yetkili Kişi"
+    },
+    "taseron_telefon": {
+      "type": "string",
+      "title": "Telefon",
+      "pattern": "^[0-9 +()-]{10,20}$"
+    },
+    "taseron_eposta": {
+      "type": "string",
+      "title": "E-posta",
+      "format": "email"
+    }
+  },
+  "required": [
+    "taseron_firma",
+    "taseron_vergi_no",
+    "taseron_yetkili"
+  ]
+}

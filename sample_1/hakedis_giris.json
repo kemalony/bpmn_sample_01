@@ -15,15 +15,14 @@
     "proje_adi": {
       "type": "string",
       "title": "Proje Adı",
-      "enum": [
-        "Kuleli Konakları",
-        "Çengelköy Rezidans",
-        "Kadıköy Ofis Park"
-      ]
+      "description": "Proje bilgisi önceki ekranda girilir.",
+      "readOnly": true
     },
     "taseron_firma": {
       "type": "string",
-      "title": "Taşeron Firma"
+      "title": "Taşeron Firma",
+      "description": "Taşeron bilgisi önceki ekranda girilir.",
+      "readOnly": true
     },
     "donem": {
       "type": "string",

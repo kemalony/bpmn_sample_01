@@ -1,0 +1,34 @@
+{
+  "title": "Proje Bilgisi Girişi",
+  "description": "Hakediş sürecinde kullanılacak proje bilgisinin girilmesi.",
+  "type": "object",
+  "properties": {
+    "proje_adi": {
+      "type": "string",
+      "title": "Proje Adı",
+      "description": "Hakedişin bağlı olduğu proje adını girin."
+    },
+    "proje_kodu": {
+      "type": "string",
+      "title": "Proje Kodu",
+      "description": "Varsa ERP, sözleşme veya iç takip kodu."
+    },
+    "proje_lokasyonu": {
+      "type": "string",
+      "title": "Proje Lokasyonu"
+    },
+    "isveren_firma": {
+      "type": "string",
+      "title": "İşveren Firma"
+    },
+    "proje_sorumlusu": {
+      "type": "string",
+      "title": "Proje Sorumlusu"
+    }
+  },
+  "required": [
+    "proje_adi",
+    "proje_lokasyonu",
+    "isveren_firma"
+  ]
+}

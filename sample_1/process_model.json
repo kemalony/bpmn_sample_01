@@ -17,8 +17,20 @@
       "path": "proje_adi"
     },
     {
+      "key": "proje_kodu",
+      "path": "proje_kodu"
+    },
+    {
+      "key": "isveren_firma",
+      "path": "isveren_firma"
+    },
+    {
       "key": "taseron_firma",
       "path": "taseron_firma"
+    },
+    {
+      "key": "taseron_vergi_no",
+      "path": "taseron_vergi_no"
     },
     {
       "key": "donem",

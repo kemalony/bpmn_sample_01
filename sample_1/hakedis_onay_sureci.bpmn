@@ -12,8 +12,49 @@
       Taşeron hakediş taleplerinin saha girişi, İSG kontrolü, PM teknik onayı, finans ön kontrolü ve GM/CFO final onayı ile uçtan uca yürütüldüğü yürütülebilir SpiffWorkflow BPMN süreci.
     </bpmn:documentation>
     <bpmn:startEvent id="StartEvent_Baslangic" name="Başlangıç">
-      <bpmn:outgoing>Flow_Start_To_Saha</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Start_To_Proje</bpmn:outgoing>
     </bpmn:startEvent>
+
+    <bpmn:userTask id="Task_Proje_Bilgisi" name="Proje Bilgisi Girişi">
+      <bpmn:documentation>
+        Hakediş sürecinde kullanılacak proje adı, proje kodu, lokasyon ve işveren bilgisi girilir.
+      </bpmn:documentation>
+      <bpmn:extensionElements>
+        <spiffworkflow:properties>
+          <spiffworkflow:property name="formJsonSchemaFilename" value="proje_bilgisi.json" />
+          <spiffworkflow:property name="formUiSchemaFilename" value="proje_bilgisi.ui.json" />
+        </spiffworkflow:properties>
+        <spiffworkflow:instructionsForEndUser><![CDATA[
+Hakediş süreci için proje bilgisini girin.
+
+Bu bilgiler sonraki hakediş, İSG, PM, finans ve GM/CFO ekranlarında otomatik özetlenir.
+        ]]></spiffworkflow:instructionsForEndUser>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Start_To_Proje</bpmn:incoming>
+      <bpmn:outgoing>Flow_Proje_To_Taseron</bpmn:outgoing>
+    </bpmn:userTask>
+
+    <bpmn:userTask id="Task_Taseron_Bilgisi" name="Taşeron Firma Bilgisi">
+      <bpmn:documentation>
+        Hakediş talebini oluşturan taşeron firma ünvanı, vergi no ve iletişim bilgileri girilir.
+      </bpmn:documentation>
+      <bpmn:extensionElements>
+        <spiffworkflow:properties>
+          <spiffworkflow:property name="formJsonSchemaFilename" value="taseron_bilgisi.json" />
+          <spiffworkflow:property name="formUiSchemaFilename" value="taseron_bilgisi.ui.json" />
+        </spiffworkflow:properties>
+        <spiffworkflow:instructionsForEndUser><![CDATA[
+Hakediş talebini yapan taşeron firmanın bilgilerini girin.
+
+- Proje: {{ proje_adi | default('') }}
+- Proje kodu: {{ proje_kodu | default('') }}
+- Lokasyon: {{ proje_lokasyonu | default('') }}
+- İşveren: {{ isveren_firma | default('') }}
+        ]]></spiffworkflow:instructionsForEndUser>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Proje_To_Taseron</bpmn:incoming>
+      <bpmn:outgoing>Flow_Taseron_To_Saha</bpmn:outgoing>
+    </bpmn:userTask>
 
     <bpmn:userTask id="Task_Saha_Hakedis_Girisi" name="Saha Hakediş Girişi">
       <bpmn:documentation>
@@ -28,8 +69,9 @@
 Hakediş talebini eksiksiz hazırlayın.
 
 Kontrol edilecek ana bilgiler:
-- Hakediş no ve sözleşme no
-- Proje, taşeron ve dönem
+- Proje: {{ proje_adi | default('') }}
+- Taşeron: {{ taseron_firma | default('') }}
+- Hakediş no, sözleşme no ve dönem
 - Bu dönem iş kapsamı ve gerçekleşme oranı
 - Önceki kümülatif hakediş tutarı
 - Bu dönem talep edilen tutar ve KDV oranı
@@ -40,7 +82,7 @@ Zorunlu dosyalar:
 - Saha fotoğrafları veya PDF raporu
         ]]></spiffworkflow:instructionsForEndUser>
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_Start_To_Saha</bpmn:incoming>
+      <bpmn:incoming>Flow_Taseron_To_Saha</bpmn:incoming>
       <bpmn:outgoing>Flow_Saha_To_HSE</bpmn:outgoing>
     </bpmn:userTask>
 
@@ -217,7 +259,9 @@ Final onay tutarını, ödeme önceliğini ve nihai karar gerekçesini girin.
       <bpmn:incoming>Flow_GMKarar_To_Red</bpmn:incoming>
     </bpmn:endEvent>
 
-    <bpmn:sequenceFlow id="Flow_Start_To_Saha" sourceRef="StartEvent_Baslangic" targetRef="Task_Saha_Hakedis_Girisi" />
+    <bpmn:sequenceFlow id="Flow_Start_To_Proje" sourceRef="StartEvent_Baslangic" targetRef="Task_Proje_Bilgisi" />
+    <bpmn:sequenceFlow id="Flow_Proje_To_Taseron" sourceRef="Task_Proje_Bilgisi" targetRef="Task_Taseron_Bilgisi" />
+    <bpmn:sequenceFlow id="Flow_Taseron_To_Saha" sourceRef="Task_Taseron_Bilgisi" targetRef="Task_Saha_Hakedis_Girisi" />
     <bpmn:sequenceFlow id="Flow_Saha_To_HSE" sourceRef="Task_Saha_Hakedis_Girisi" targetRef="Task_HSE_Kontrolu" />
     <bpmn:sequenceFlow id="Flow_HSE_To_PM" sourceRef="Task_HSE_Kontrolu" targetRef="Task_PM_Onayi" />
     <bpmn:sequenceFlow id="Flow_PM_To_PMKarar" sourceRef="Task_PM_Onayi" targetRef="Gateway_PM_Karar" />
@@ -246,89 +290,103 @@ Final onay tutarını, ödeme önceliğini ve nihai karar gerekçesini girin.
   <bpmndi:BPMNDiagram id="BPMNDiagram_insaat_hakedis_sureci">
     <bpmndi:BPMNPlane id="BPMNPlane_insaat_hakedis_sureci" bpmnElement="insaat_hakedis_sureci">
       <bpmndi:BPMNShape id="Shape_StartEvent_Baslangic" bpmnElement="StartEvent_Baslangic">
-        <dc:Bounds x="100" y="242" width="36" height="36" />
+        <dc:Bounds x="80" y="242" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Task_Proje_Bilgisi" bpmnElement="Task_Proje_Bilgisi">
+        <dc:Bounds x="160" y="220" width="170" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Task_Taseron_Bilgisi" bpmnElement="Task_Taseron_Bilgisi">
+        <dc:Bounds x="380" y="220" width="170" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_Task_Saha_Hakedis_Girisi" bpmnElement="Task_Saha_Hakedis_Girisi">
-        <dc:Bounds x="180" y="220" width="170" height="80" />
+        <dc:Bounds x="600" y="220" width="170" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_Task_HSE_Kontrolu" bpmnElement="Task_HSE_Kontrolu">
-        <dc:Bounds x="400" y="220" width="170" height="80" />
+        <dc:Bounds x="820" y="220" width="170" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_Task_PM_Onayi" bpmnElement="Task_PM_Onayi">
-        <dc:Bounds x="620" y="220" width="170" height="80" />
+        <dc:Bounds x="1040" y="220" width="170" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_Gateway_PM_Karar" bpmnElement="Gateway_PM_Karar" isMarkerVisible="true">
-        <dc:Bounds x="835" y="235" width="50" height="50" />
+        <dc:Bounds x="1255" y="235" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_Task_Finans_Kontrol" bpmnElement="Task_Finans_Kontrol">
-        <dc:Bounds x="940" y="220" width="170" height="80" />
+        <dc:Bounds x="1360" y="220" width="170" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_Gateway_Finans_Karar" bpmnElement="Gateway_Finans_Karar" isMarkerVisible="true">
-        <dc:Bounds x="1155" y="235" width="50" height="50" />
+        <dc:Bounds x="1575" y="235" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_Task_GM_Onayi" bpmnElement="Task_GM_Onayi">
-        <dc:Bounds x="1260" y="220" width="170" height="80" />
+        <dc:Bounds x="1680" y="220" width="170" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_Gateway_GM_Karar" bpmnElement="Gateway_GM_Karar" isMarkerVisible="true">
-        <dc:Bounds x="1475" y="235" width="50" height="50" />
+        <dc:Bounds x="1895" y="235" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_EndEvent_Onaylandi" bpmnElement="EndEvent_Onaylandi">
-        <dc:Bounds x="1585" y="242" width="36" height="36" />
+        <dc:Bounds x="2005" y="242" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_EndEvent_Reddedildi" bpmnElement="EndEvent_Reddedildi">
-        <dc:Bounds x="1585" y="390" width="36" height="36" />
+        <dc:Bounds x="2005" y="390" width="36" height="36" />
       </bpmndi:BPMNShape>
 
-      <bpmndi:BPMNEdge id="Edge_Flow_Start_To_Saha" bpmnElement="Flow_Start_To_Saha">
-        <di:waypoint x="136" y="260" />
-        <di:waypoint x="180" y="260" />
+      <bpmndi:BPMNEdge id="Edge_Flow_Start_To_Proje" bpmnElement="Flow_Start_To_Proje">
+        <di:waypoint x="116" y="260" />
+        <di:waypoint x="160" y="260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_Proje_To_Taseron" bpmnElement="Flow_Proje_To_Taseron">
+        <di:waypoint x="330" y="260" />
+        <di:waypoint x="380" y="260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_Taseron_To_Saha" bpmnElement="Flow_Taseron_To_Saha">
+        <di:waypoint x="550" y="260" />
+        <di:waypoint x="600" y="260" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_Flow_Saha_To_HSE" bpmnElement="Flow_Saha_To_HSE">
-        <di:waypoint x="350" y="260" />
-        <di:waypoint x="400" y="260" />
+        <di:waypoint x="770" y="260" />
+        <di:waypoint x="820" y="260" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_Flow_HSE_To_PM" bpmnElement="Flow_HSE_To_PM">
-        <di:waypoint x="570" y="260" />
-        <di:waypoint x="620" y="260" />
+        <di:waypoint x="990" y="260" />
+        <di:waypoint x="1040" y="260" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_Flow_PM_To_PMKarar" bpmnElement="Flow_PM_To_PMKarar">
-        <di:waypoint x="790" y="260" />
-        <di:waypoint x="835" y="260" />
+        <di:waypoint x="1210" y="260" />
+        <di:waypoint x="1255" y="260" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_Flow_PMKarar_To_Finans" bpmnElement="Flow_PMKarar_To_Finans">
-        <di:waypoint x="885" y="260" />
-        <di:waypoint x="940" y="260" />
+        <di:waypoint x="1305" y="260" />
+        <di:waypoint x="1360" y="260" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_Flow_PMKarar_To_Red" bpmnElement="Flow_PMKarar_To_Red">
-        <di:waypoint x="860" y="285" />
-        <di:waypoint x="860" y="408" />
-        <di:waypoint x="1585" y="408" />
+        <di:waypoint x="1280" y="285" />
+        <di:waypoint x="1280" y="408" />
+        <di:waypoint x="2005" y="408" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_Flow_Finans_To_FinansKarar" bpmnElement="Flow_Finans_To_FinansKarar">
-        <di:waypoint x="1110" y="260" />
-        <di:waypoint x="1155" y="260" />
+        <di:waypoint x="1530" y="260" />
+        <di:waypoint x="1575" y="260" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_Flow_FinansKarar_To_GM" bpmnElement="Flow_FinansKarar_To_GM">
-        <di:waypoint x="1205" y="260" />
-        <di:waypoint x="1260" y="260" />
+        <di:waypoint x="1625" y="260" />
+        <di:waypoint x="1680" y="260" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_Flow_FinansKarar_To_Red" bpmnElement="Flow_FinansKarar_To_Red">
-        <di:waypoint x="1180" y="285" />
-        <di:waypoint x="1180" y="408" />
-        <di:waypoint x="1585" y="408" />
+        <di:waypoint x="1600" y="285" />
+        <di:waypoint x="1600" y="408" />
+        <di:waypoint x="2005" y="408" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_Flow_GM_To_GMKarar" bpmnElement="Flow_GM_To_GMKarar">
-        <di:waypoint x="1430" y="260" />
-        <di:waypoint x="1475" y="260" />
+        <di:waypoint x="1850" y="260" />
+        <di:waypoint x="1895" y="260" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_Flow_GMKarar_To_Onay" bpmnElement="Flow_GMKarar_To_Onay">
-        <di:waypoint x="1525" y="260" />
-        <di:waypoint x="1585" y="260" />
+        <di:waypoint x="1945" y="260" />
+        <di:waypoint x="2005" y="260" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_Flow_GMKarar_To_Red" bpmnElement="Flow_GMKarar_To_Red">
-        <di:waypoint x="1500" y="285" />
-        <di:waypoint x="1500" y="408" />
-        <di:waypoint x="1585" y="408" />
+        <di:waypoint x="1920" y="285" />
+        <di:waypoint x="1920" y="408" />
+        <di:waypoint x="2005" y="408" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

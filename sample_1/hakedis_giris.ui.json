@@ -244,11 +244,12 @@
     "ui:placeholder": "SOZ-2026-018"
   },
   "proje_adi": {
-    "ui:placeholder": "Proje seçin",
-    "ui:widget": "select"
+    "ui:readonly": true,
+    "ui:placeholder": "Proje bilgisi önceki ekrandan gelir"
   },
   "taseron_firma": {
-    "ui:placeholder": "Taşeron firma ünvanı"
+    "ui:readonly": true,
+    "ui:placeholder": "Taşeron bilgisi önceki ekrandan gelir"
   },
   "donem": {
     "ui:placeholder": "05/2026",
