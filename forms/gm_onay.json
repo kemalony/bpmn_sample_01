@@ -3,6 +3,22 @@
   "description": "Genel müdür veya CFO tarafından hakediş talebinin nihai onayının verilmesi.",
   "type": "object",
   "properties": {
+    "final_onay_tutari": {
+      "type": "number",
+      "title": "Final Onay Tutarı (TL)",
+      "description": "Finans net ödeme tutarı veya yönetimce revize edilen final tutar.",
+      "minimum": 0
+    },
+    "odeme_onceligi": {
+      "type": "string",
+      "title": "Ödeme Önceliği",
+      "enum": [
+        "Normal",
+        "Öncelikli",
+        "Blokeli"
+      ],
+      "default": "Normal"
+    },
     "gm_onay_durum": {
       "type": "boolean",
       "title": "GM / CFO Onay Durumu",
@@ -12,9 +28,17 @@
       "type": "string",
       "title": "GM / CFO Gerekçe / Not",
       "ui:widget": "textarea"
+    },
+    "yonetim_notu": {
+      "type": "string",
+      "title": "Yönetim Notu",
+      "description": "Ödeme zamanı, öncelik veya sözleşmesel kayıt için ek açıklama.",
+      "ui:widget": "textarea"
     }
   },
   "required": [
+    "final_onay_tutari",
+    "odeme_onceligi",
     "gm_onay_durum",
     "gm_gerekce"
   ]

@@ -3,6 +3,20 @@
   "description": "Muhasebe / finans ekibi tarafından taşeron belge ve ödeme uygunluk kontrolünün yapılması.",
   "type": "object",
   "properties": {
+    "fatura_no": {
+      "type": "string",
+      "title": "Fatura No"
+    },
+    "fatura_tarihi": {
+      "type": "string",
+      "title": "Fatura Tarihi",
+      "format": "date"
+    },
+    "cari_hesap_mutabik_mi": {
+      "type": "boolean",
+      "title": "Cari Hesap Mutabık mı?",
+      "default": true
+    },
     "vergi_borcu_yoktur_belgesi": {
       "type": "string",
       "title": "Vergi Borcu Yoktur Belgesi",
@@ -10,6 +24,28 @@
       "format": "data-url",
       "contentEncoding": "base64",
       "ui:widget": "file"
+    },
+    "stopaj_tutari": {
+      "type": "number",
+      "title": "Stopaj / Yasal Kesinti Tutarı (TL)",
+      "minimum": 0,
+      "default": 0
+    },
+    "kdv_tutari": {
+      "type": "number",
+      "title": "KDV Tutarı (TL)",
+      "minimum": 0,
+      "default": 0
+    },
+    "net_odeme_tutari": {
+      "type": "number",
+      "title": "Net Ödeme Tutarı (TL)",
+      "minimum": 0
+    },
+    "onerilen_odeme_tarihi": {
+      "type": "string",
+      "title": "Önerilen Ödeme Tarihi",
+      "format": "date"
     },
     "finans_onay_durum": {
       "type": "boolean",
@@ -23,7 +59,14 @@
     }
   },
   "required": [
+    "fatura_no",
+    "fatura_tarihi",
+    "cari_hesap_mutabik_mi",
     "vergi_borcu_yoktur_belgesi",
+    "stopaj_tutari",
+    "kdv_tutari",
+    "net_odeme_tutari",
+    "onerilen_odeme_tarihi",
     "finans_onay_durum"
   ]
 }

@@ -2,10 +2,18 @@
   "id": "insaat_hakedis_sureci",
   "process_id": "insaat_hakedis_sureci",
   "display_name": "İnşaat Hakediş Kontrol ve Onay Süreci",
-  "description": "İnşaat hakediş taleplerinin saha girişi, İSG kontrolü, proje müdürü onayı, finans ön kontrolü ve genel müdür/CFO final onayı ile yürütülmesi.",
+  "description": "İnşaat hakediş taleplerinin sözleşme, metraj, İSG, teknik onay, finansal ön kontrol ve GM/CFO final onayı ile uçtan uca yürütülmesi.",
   "primary_file_name": "hakedis_onay_sureci.bpmn",
   "primary_process_id": "insaat_hakedis_sureci",
   "metadata_extraction_paths": [
+    {
+      "key": "hakedis_no",
+      "path": "hakedis_no"
+    },
+    {
+      "key": "sozlesme_no",
+      "path": "sozlesme_no"
+    },
     {
       "key": "proje_adi",
       "path": "proje_adi"
@@ -21,6 +29,18 @@
     {
       "key": "talep_edilen_tutar",
       "path": "talep_edilen_tutar"
+    },
+    {
+      "key": "revize_hakedis_tutari",
+      "path": "revize_hakedis_tutari"
+    },
+    {
+      "key": "net_odeme_tutari",
+      "path": "net_odeme_tutari"
+    },
+    {
+      "key": "onerilen_odeme_tarihi",
+      "path": "onerilen_odeme_tarihi"
     }
   ],
   "exception_notification_addresses": [],

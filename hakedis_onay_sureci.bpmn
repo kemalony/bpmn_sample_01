@@ -8,17 +8,35 @@
                   id="Definitions_insaat_hakedis_sureci"
                   targetNamespace="http://spiffworkflow.org/bpmn/insaat_hakedis_sureci">
   <bpmn:process id="insaat_hakedis_sureci" name="İnşaat Hakediş Kontrol ve Onay Süreci" isExecutable="true">
+    <bpmn:documentation>
+      Taşeron hakediş taleplerinin saha girişi, İSG kontrolü, PM teknik onayı, finans ön kontrolü ve GM/CFO final onayı ile uçtan uca yürütüldüğü yürütülebilir SpiffWorkflow BPMN süreci.
+    </bpmn:documentation>
     <bpmn:startEvent id="StartEvent_Baslangic" name="Başlangıç">
       <bpmn:outgoing>Flow_Start_To_Saha</bpmn:outgoing>
     </bpmn:startEvent>
 
     <bpmn:userTask id="Task_Saha_Hakedis_Girisi" name="Saha Hakediş Girişi">
+      <bpmn:documentation>
+        Saha mühendisi hakediş dönemini, sözleşme bilgisini, gerçekleşme oranını, talep tutarını ve zorunlu destek dosyalarını girer.
+      </bpmn:documentation>
       <bpmn:extensionElements>
         <spiffworkflow:properties>
           <spiffworkflow:property name="formJsonSchemaFilename" value="forms/hakedis_giris.json" />
         </spiffworkflow:properties>
         <spiffworkflow:instructionsForEndUser><![CDATA[
-Hakediş talebini ve destek dosyalarını eksiksiz girin.
+Hakediş talebini eksiksiz hazırlayın.
+
+Kontrol edilecek ana bilgiler:
+- Hakediş no ve sözleşme no
+- Proje, taşeron ve dönem
+- Bu dönem iş kapsamı ve gerçekleşme oranı
+- Önceki kümülatif hakediş tutarı
+- Bu dönem talep edilen tutar ve KDV oranı
+
+Zorunlu dosyalar:
+- Metraj cetveli
+- İmzalı hakediş kapağı
+- Saha fotoğrafları veya PDF raporu
         ]]></spiffworkflow:instructionsForEndUser>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_Start_To_Saha</bpmn:incoming>
@@ -26,6 +44,9 @@ Hakediş talebini ve destek dosyalarını eksiksiz girin.
     </bpmn:userTask>
 
     <bpmn:userTask id="Task_HSE_Kontrolu" name="İSG Kontrolü">
+      <bpmn:documentation>
+        İSG uzmanı saha dönemini inceler; ihlal, risk seviyesi, açık aksiyon ve kesinti bilgilerini kaydeder.
+      </bpmn:documentation>
       <bpmn:extensionElements>
         <spiffworkflow:properties>
           <spiffworkflow:property name="formJsonSchemaFilename" value="forms/hse_kontrol.json" />
@@ -33,11 +54,18 @@ Hakediş talebini ve destek dosyalarını eksiksiz girin.
         <spiffworkflow:instructionsForEndUser><![CDATA[
 Saha hakediş bilgilerini inceleyin:
 
+- Hakediş no: {{ hakedis_no | default('') }}
+- Sözleşme no: {{ sozlesme_no | default('') }}
 - Proje: {{ proje_adi | default('') }}
 - Taşeron: {{ taseron_firma | default('') }}
 - Dönem: {{ donem | default('') }}
+- İş kapsamı: {{ isin_kapsami | default('') }}
+- İmalat gerçekleşme oranı: {{ bu_donem_imalat_orani | default('') }}%
+- Önceki kümülatif hakediş: {{ onceki_hakedis_tutari | default(0) }}
 - Talep edilen tutar: {{ talep_edilen_tutar | default('') }}
 - Açıklama: {{ aciklama | default('') }}
+
+İSG kontrolünde denetim tarihi, risk seviyesi, açık aksiyon sayısı, varsa kesinti tutarı ve HSE notlarını girin.
         ]]></spiffworkflow:instructionsForEndUser>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_Saha_To_HSE</bpmn:incoming>
@@ -45,21 +73,36 @@ Saha hakediş bilgilerini inceleyin:
     </bpmn:userTask>
 
     <bpmn:userTask id="Task_PM_Onayi" name="PM Onayı">
+      <bpmn:documentation>
+        Proje müdürü saha ve İSG kayıtlarını değerlendirir; teknik uygunluk, metraj tutarlılığı ve revize hakediş tutarı üzerinden onay kararı verir.
+      </bpmn:documentation>
       <bpmn:extensionElements>
         <spiffworkflow:properties>
           <spiffworkflow:property name="formJsonSchemaFilename" value="forms/pm_onay.json" />
         </spiffworkflow:properties>
         <spiffworkflow:instructionsForEndUser><![CDATA[
-Önceki aşama bilgileri:
+Saha ve İSG aşaması özeti:
 
+- Hakediş no: {{ hakedis_no | default('') }}
+- Sözleşme no: {{ sozlesme_no | default('') }}
 - Proje: {{ proje_adi | default('') }}
 - Taşeron: {{ taseron_firma | default('') }}
 - Dönem: {{ donem | default('') }}
+- İş kapsamı: {{ isin_kapsami | default('') }}
+- İmalat gerçekleşme oranı: {{ bu_donem_imalat_orani | default('') }}%
+- Önceki kümülatif hakediş: {{ onceki_hakedis_tutari | default(0) }}
 - Talep edilen tutar: {{ talep_edilen_tutar | default('') }}
+- KDV oranı: {{ kdv_orani | default('') }}%
 - Saha açıklaması: {{ aciklama | default('') }}
+- İSG denetim tarihi: {{ isg_denetim_tarihi | default('') }}
 - İSG ihlali var mı: {{ isg_ihlal_var_mi | default(false) }}
+- İSG risk seviyesi: {{ isg_risk_seviyesi | default('') }}
+- Açık aksiyon sayısı: {{ acik_aksiyon_sayisi | default(0) }}
+- Aksiyon kapanış durumu: {{ aksiyon_kapanis_durumu | default('') }}
 - İSG kesinti tutarı: {{ kesinti_tutari | default(0) }}
 - HSE notları: {{ hse_notlari | default('') }}
+
+Teknik uygunluk, metraj uygunluğu ve PM revize hakediş tutarını girerek onay veya red kararı verin.
         ]]></spiffworkflow:instructionsForEndUser>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_HSE_To_PM</bpmn:incoming>
@@ -67,12 +110,18 @@ Saha hakediş bilgilerini inceleyin:
     </bpmn:userTask>
 
     <bpmn:exclusiveGateway id="Gateway_PM_Karar" name="PM Karar">
+      <bpmn:documentation>
+        PM onayı false ise süreç reddedilerek kapanır; true ise finans ön kontrolüne geçer.
+      </bpmn:documentation>
       <bpmn:incoming>Flow_PM_To_PMKarar</bpmn:incoming>
       <bpmn:outgoing>Flow_PMKarar_To_Finans</bpmn:outgoing>
       <bpmn:outgoing>Flow_PMKarar_To_Red</bpmn:outgoing>
     </bpmn:exclusiveGateway>
 
     <bpmn:userTask id="Task_Finans_Kontrol" name="Finans Ön Kontrol">
+      <bpmn:documentation>
+        Finans ekibi fatura, cari hesap, vergi borcu yoktur belgesi, kesintiler ve net ödeme tutarı üzerinden ön kontrol yapar.
+      </bpmn:documentation>
       <bpmn:extensionElements>
         <spiffworkflow:properties>
           <spiffworkflow:property name="formJsonSchemaFilename" value="forms/finans_kontrol.json" />
@@ -80,11 +129,19 @@ Saha hakediş bilgilerini inceleyin:
         <spiffworkflow:instructionsForEndUser><![CDATA[
 PM onayı sonrası finans ön kontrolünü tamamlayın.
 
+- Hakediş no: {{ hakedis_no | default('') }}
+- Sözleşme no: {{ sozlesme_no | default('') }}
 - Proje: {{ proje_adi | default('') }}
 - Taşeron: {{ taseron_firma | default('') }}
 - Dönem: {{ donem | default('') }}
 - Talep edilen tutar: {{ talep_edilen_tutar | default('') }}
+- PM revize hakediş tutarı: {{ revize_hakedis_tutari | default('') }}
+- İmalat uygun mu: {{ imalat_uygun_mu | default(true) }}
+- Metraj uygun mu: {{ metraj_uygun_mu | default(true) }}
 - PM gerekçe/not: {{ pm_gerekce | default('') }}
+- İSG kesinti tutarı: {{ kesinti_tutari | default(0) }}
+
+Fatura bilgilerini, cari hesap mutabakatını, yasal kesintileri, KDV tutarını, net ödeme tutarını ve önerilen ödeme tarihini girin.
         ]]></spiffworkflow:instructionsForEndUser>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_PMKarar_To_Finans</bpmn:incoming>
@@ -92,12 +149,18 @@ PM onayı sonrası finans ön kontrolünü tamamlayın.
     </bpmn:userTask>
 
     <bpmn:exclusiveGateway id="Gateway_Finans_Karar" name="Finans Karar">
+      <bpmn:documentation>
+        Finans onayı false ise süreç reddedilerek kapanır; true ise GM/CFO final onayına geçer.
+      </bpmn:documentation>
       <bpmn:incoming>Flow_Finans_To_FinansKarar</bpmn:incoming>
       <bpmn:outgoing>Flow_FinansKarar_To_GM</bpmn:outgoing>
       <bpmn:outgoing>Flow_FinansKarar_To_Red</bpmn:outgoing>
     </bpmn:exclusiveGateway>
 
     <bpmn:userTask id="Task_GM_Onayi" name="GM Final Onayı">
+      <bpmn:documentation>
+        Genel müdür veya CFO teknik ve finansal kontrolleri görerek final tutar, ödeme önceliği ve nihai onay kararını kaydeder.
+      </bpmn:documentation>
       <bpmn:extensionElements>
         <spiffworkflow:properties>
           <spiffworkflow:property name="formJsonSchemaFilename" value="forms/gm_onay.json" />
@@ -105,13 +168,25 @@ PM onayı sonrası finans ön kontrolünü tamamlayın.
         <spiffworkflow:instructionsForEndUser><![CDATA[
 Final onay öncesi özet:
 
+- Hakediş no: {{ hakedis_no | default('') }}
+- Sözleşme no: {{ sozlesme_no | default('') }}
 - Proje: {{ proje_adi | default('') }}
 - Taşeron: {{ taseron_firma | default('') }}
 - Dönem: {{ donem | default('') }}
 - Talep edilen tutar: {{ talep_edilen_tutar | default('') }}
+- PM revize hakediş tutarı: {{ revize_hakedis_tutari | default('') }}
 - İSG kesinti tutarı: {{ kesinti_tutari | default(0) }}
 - PM gerekçe/not: {{ pm_gerekce | default('') }}
+- Fatura no: {{ fatura_no | default('') }}
+- Fatura tarihi: {{ fatura_tarihi | default('') }}
+- Cari hesap mutabık mı: {{ cari_hesap_mutabik_mi | default(true) }}
+- Stopaj / yasal kesinti: {{ stopaj_tutari | default(0) }}
+- KDV tutarı: {{ kdv_tutari | default(0) }}
+- Net ödeme tutarı: {{ net_odeme_tutari | default('') }}
+- Önerilen ödeme tarihi: {{ onerilen_odeme_tarihi | default('') }}
 - Finans notları: {{ finans_notlari | default('') }}
+
+Final onay tutarını, ödeme önceliğini ve nihai karar gerekçesini girin.
         ]]></spiffworkflow:instructionsForEndUser>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_FinansKarar_To_GM</bpmn:incoming>
@@ -119,6 +194,9 @@ Final onay öncesi özet:
     </bpmn:userTask>
 
     <bpmn:exclusiveGateway id="Gateway_GM_Karar" name="GM Karar">
+      <bpmn:documentation>
+        GM/CFO onayı true ise süreç onaylanmış olarak kapanır; false ise reddedilmiş olarak kapanır.
+      </bpmn:documentation>
       <bpmn:incoming>Flow_GM_To_GMKarar</bpmn:incoming>
       <bpmn:outgoing>Flow_GMKarar_To_Onay</bpmn:outgoing>
       <bpmn:outgoing>Flow_GMKarar_To_Red</bpmn:outgoing>
@@ -138,24 +216,24 @@ Final onay öncesi özet:
     <bpmn:sequenceFlow id="Flow_Saha_To_HSE" sourceRef="Task_Saha_Hakedis_Girisi" targetRef="Task_HSE_Kontrolu" />
     <bpmn:sequenceFlow id="Flow_HSE_To_PM" sourceRef="Task_HSE_Kontrolu" targetRef="Task_PM_Onayi" />
     <bpmn:sequenceFlow id="Flow_PM_To_PMKarar" sourceRef="Task_PM_Onayi" targetRef="Gateway_PM_Karar" />
-    <bpmn:sequenceFlow id="Flow_PMKarar_To_Finans" sourceRef="Gateway_PM_Karar" targetRef="Task_Finans_Kontrol">
+    <bpmn:sequenceFlow id="Flow_PMKarar_To_Finans" name="PM Onay" sourceRef="Gateway_PM_Karar" targetRef="Task_Finans_Kontrol">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">pm_onay_durum == True</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_PMKarar_To_Red" sourceRef="Gateway_PM_Karar" targetRef="EndEvent_Reddedildi">
+    <bpmn:sequenceFlow id="Flow_PMKarar_To_Red" name="PM Red" sourceRef="Gateway_PM_Karar" targetRef="EndEvent_Reddedildi">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">pm_onay_durum == False</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_Finans_To_FinansKarar" sourceRef="Task_Finans_Kontrol" targetRef="Gateway_Finans_Karar" />
-    <bpmn:sequenceFlow id="Flow_FinansKarar_To_GM" sourceRef="Gateway_Finans_Karar" targetRef="Task_GM_Onayi">
+    <bpmn:sequenceFlow id="Flow_FinansKarar_To_GM" name="Finans Onay" sourceRef="Gateway_Finans_Karar" targetRef="Task_GM_Onayi">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">finans_onay_durum == True</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_FinansKarar_To_Red" sourceRef="Gateway_Finans_Karar" targetRef="EndEvent_Reddedildi">
+    <bpmn:sequenceFlow id="Flow_FinansKarar_To_Red" name="Finans Red" sourceRef="Gateway_Finans_Karar" targetRef="EndEvent_Reddedildi">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">finans_onay_durum == False</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_GM_To_GMKarar" sourceRef="Task_GM_Onayi" targetRef="Gateway_GM_Karar" />
-    <bpmn:sequenceFlow id="Flow_GMKarar_To_Onay" sourceRef="Gateway_GM_Karar" targetRef="EndEvent_Onaylandi">
+    <bpmn:sequenceFlow id="Flow_GMKarar_To_Onay" name="GM Onay" sourceRef="Gateway_GM_Karar" targetRef="EndEvent_Onaylandi">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">gm_onay_durum == True</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_GMKarar_To_Red" sourceRef="Gateway_GM_Karar" targetRef="EndEvent_Reddedildi">
+    <bpmn:sequenceFlow id="Flow_GMKarar_To_Red" name="GM Red" sourceRef="Gateway_GM_Karar" targetRef="EndEvent_Reddedildi">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">gm_onay_durum == False</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
   </bpmn:process>

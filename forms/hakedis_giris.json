@@ -3,6 +3,15 @@
   "description": "Saha mühendisi tarafından hakediş talebinin ve destekleyici dosyaların girilmesi.",
   "type": "object",
   "properties": {
+    "hakedis_no": {
+      "type": "string",
+      "title": "Hakediş No",
+      "description": "Örn. HKD-2026-005"
+    },
+    "sozlesme_no": {
+      "type": "string",
+      "title": "Sözleşme No"
+    },
     "proje_adi": {
       "type": "string",
       "title": "Proje Adı",
@@ -25,10 +34,40 @@
         "05/2026"
       ]
     },
+    "isin_kapsami": {
+      "type": "string",
+      "title": "Bu Dönem Yapılan İşin Kapsamı",
+      "description": "İmalat kalemlerini, mahal/blok bilgilerini ve gerçekleşen ana işleri özetleyin.",
+      "ui:widget": "textarea"
+    },
+    "onceki_hakedis_tutari": {
+      "type": "number",
+      "title": "Önceki Kümülatif Hakediş Tutarı (TL)",
+      "minimum": 0,
+      "default": 0
+    },
     "talep_edilen_tutar": {
       "type": "number",
       "title": "Talep Edilen Tutar (TL)",
+      "description": "Bu dönem için KDV hariç brüt hakediş tutarı.",
       "minimum": 0
+    },
+    "bu_donem_imalat_orani": {
+      "type": "number",
+      "title": "Bu Dönem İmalat Gerçekleşme Oranı (%)",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "kdv_orani": {
+      "type": "number",
+      "title": "KDV Oranı (%)",
+      "enum": [
+        0,
+        1,
+        10,
+        20
+      ],
+      "default": 20
     },
     "aciklama": {
       "type": "string",
@@ -43,6 +82,14 @@
       "contentEncoding": "base64",
       "ui:widget": "file"
     },
+    "imzali_hakedis_kapagi": {
+      "type": "string",
+      "title": "İmzalı Hakediş Kapağı",
+      "description": "Taşeron tarafından imzalanmış hakediş kapak sayfası",
+      "format": "data-url",
+      "contentEncoding": "base64",
+      "ui:widget": "file"
+    },
     "saha_fotograflari": {
       "type": "string",
       "title": "Saha Fotoğrafları / PDF Raporu",
@@ -50,15 +97,30 @@
       "format": "data-url",
       "contentEncoding": "base64",
       "ui:widget": "file"
+    },
+    "ek_belgeler": {
+      "type": "string",
+      "title": "Ek Belgeler",
+      "description": "Varsa ataşman, tutanak, revizyon veya teslim dokümanı",
+      "format": "data-url",
+      "contentEncoding": "base64",
+      "ui:widget": "file"
     }
   },
   "required": [
+    "hakedis_no",
+    "sozlesme_no",
     "proje_adi",
     "taseron_firma",
     "donem",
+    "isin_kapsami",
+    "onceki_hakedis_tutari",
     "talep_edilen_tutar",
+    "bu_donem_imalat_orani",
+    "kdv_orani",
     "aciklama",
     "metraj_cetveli",
+    "imzali_hakedis_kapagi",
     "saha_fotograflari"
   ]
 }

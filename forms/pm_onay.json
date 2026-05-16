@@ -3,6 +3,22 @@
   "description": "Proje müdürü önceki aşama verilerini inceleyerek hakediş talebini onaylar veya reddeder.",
   "type": "object",
   "properties": {
+    "imalat_uygun_mu": {
+      "type": "boolean",
+      "title": "İmalat Sözleşme ve Projeye Uygun mu?",
+      "default": true
+    },
+    "metraj_uygun_mu": {
+      "type": "boolean",
+      "title": "Metraj ve Gerçekleşme Oranı Uygun mu?",
+      "default": true
+    },
+    "revize_hakedis_tutari": {
+      "type": "number",
+      "title": "PM Revize Hakediş Tutarı (TL)",
+      "description": "Revizyon yoksa talep edilen tutarı tekrar girin.",
+      "minimum": 0
+    },
     "pm_onay_durum": {
       "type": "boolean",
       "title": "PM Onay Durumu",
@@ -15,6 +31,9 @@
     }
   },
   "required": [
+    "imalat_uygun_mu",
+    "metraj_uygun_mu",
+    "revize_hakedis_tutari",
     "pm_onay_durum",
     "pm_gerekce"
   ]

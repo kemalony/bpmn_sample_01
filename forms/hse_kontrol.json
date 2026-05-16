@@ -3,10 +3,42 @@
   "description": "İSG uzmanı tarafından hakediş dönemine ait güvenlik kontrollerinin kaydedilmesi.",
   "type": "object",
   "properties": {
+    "isg_denetim_tarihi": {
+      "type": "string",
+      "title": "İSG Denetim Tarihi",
+      "format": "date"
+    },
     "isg_ihlal_var_mi": {
       "type": "boolean",
       "title": "İSG İhlali Var mı?",
       "default": false
+    },
+    "isg_risk_seviyesi": {
+      "type": "string",
+      "title": "İSG Risk Seviyesi",
+      "enum": [
+        "Düşük",
+        "Orta",
+        "Yüksek",
+        "Kritik"
+      ],
+      "default": "Düşük"
+    },
+    "acik_aksiyon_sayisi": {
+      "type": "integer",
+      "title": "Açık Aksiyon Sayısı",
+      "minimum": 0,
+      "default": 0
+    },
+    "aksiyon_kapanis_durumu": {
+      "type": "string",
+      "title": "Aksiyon Kapanış Durumu",
+      "enum": [
+        "Açık",
+        "Kısmen Kapalı",
+        "Kapalı"
+      ],
+      "default": "Kapalı"
     },
     "kesinti_tutari": {
       "type": "number",
@@ -29,7 +61,11 @@
     }
   },
   "required": [
+    "isg_denetim_tarihi",
     "isg_ihlal_var_mi",
+    "isg_risk_seviyesi",
+    "acik_aksiyon_sayisi",
+    "aksiyon_kapanis_durumu",
     "hse_notlari"
   ]
 }

@@ -1,60 +1,32 @@
-You are an expert software agent specializing in advanced BPMN 2.0 architectures and SpiffWorkflow enterprise integrations.
+# İnşaat Hakediş Kontrol ve Onay Süreci
 
-I need you to upgrade our "Construction Progress Payment Approval Process" (İnşaat Hakediş Kontrol ve Onay Süreci) into a multi-stage enterprise repository. It must include multi-file upload capabilities and 2 new structural forms (HSE and Finance pre-check).
+Bu paket, SpiffWorkflow üzerinde çalıştırılmak üzere hazırlanmış yürütülebilir BPMN 2.0 hakediş onay sürecini içerir.
 
-Please create/overwrite the following files with their precise content and paths inside the workspace:
+## Ana Dosyalar
 
-1. process_metadata.json:
-- Update/maintain the process id as "insaat_hakedis_sureci"
-- Ensure it points to "hakedis_onay_sureci.bpmn"
+- `process_metadata.json`: Süreç kimliği, birincil BPMN dosyası ve takip metadata alanları.
+- `hakedis_onay_sureci.bpmn`: Yürütülebilir BPMN akışı ve SpiffWorkflow form bağlantıları.
+- `forms/hakedis_giris.json`: Saha hakediş girişi formu.
+- `forms/hse_kontrol.json`: İSG / HSE kontrol formu.
+- `forms/pm_onay.json`: Proje müdürü teknik onay formu.
+- `forms/finans_kontrol.json`: Finans ön kontrol formu.
+- `forms/gm_onay.json`: GM / CFO final onay formu.
 
-2. forms/hakedis_giris.json (Stage 1: Field Engineer Form with File Upload):
-- Fields: 
-  * proje_adi (Enum: Kuleli Konakları, Çengelköy Rezidans, Kadıköy Ofis Park)
-  * taseron_firma (string)
-  * donem (string, regex pattern for MM/YYYY)
-  * talep_edilen_tutar (number)
-  * aciklama (textarea)
-  * metraj_cetveli (type: string, widget: file or spiff-file-upload, description: "Excel formatında metraj cetveli yükleyin")
-  * saha_fotograflari (type: string, widget: file or spiff-file-upload, description: "Yapılan imalatın fotoğrafları veya PDF raporu")
-- All fields are required.
+## Akış
 
-3. forms/hse_kontrol.json (Stage 2: New - HSE / İSG Uzmanı Formu):
-- Fields:
-  * isg_ihlal_var_mi (boolean, default false)
-  * kesinti_tutari (number, title: "İSG İhlal Kesinti Tutarı (TL)")
-  * isg_raporu (type: string, widget: file or spiff-file-upload, description: "Aylık İSG Denetim Raporu PDF")
-  * hse_notlari (textarea)
-- Required: isg_ihlal_var_mi, hse_notlari
+1. Saha mühendisi hakediş no, sözleşme no, proje, taşeron, dönem, iş kapsamı, gerçekleşme oranı, talep tutarı ve destek dosyalarını girer.
+2. İSG uzmanı denetim tarihi, risk seviyesi, ihlal durumu, açık aksiyon sayısı, kesinti tutarı ve HSE notlarını kaydeder.
+3. Proje müdürü teknik uygunluk, metraj uygunluğu ve revize hakediş tutarı üzerinden onay veya red kararı verir.
+4. Finans ekibi fatura, cari hesap mutabakatı, vergi borcu yoktur belgesi, yasal kesintiler, KDV, net ödeme tutarı ve önerilen ödeme tarihini kontrol eder.
+5. GM / CFO final onay tutarı, ödeme önceliği ve nihai gerekçe ile süreci onaylar veya reddeder.
 
-4. forms/pm_onay.json (Stage 3: Project Manager Approval Form):
-- Fields: pm_onay_durum (boolean, default true), pm_gerekce (textarea).
-- PM must see previous fields context (read-only) and decide.
+## Karar Mantığı
 
-5. forms/finans_kontrol.json (Stage 4: New - Muhasebe / Finans Ön Kontrol Formu):
-- Fields:
-  * vergi_borcu_yoktur_belgesi (type: string, widget: file or spiff-file-upload, description: "Taşeronun güncel vergi borcu yoktur yazısı")
-  * finans_onay_durum (boolean, default true)
-  * finans_notlari (textarea)
-- Required: vergi_borcu_yoktur_belgesi, finans_onay_durum
+- `pm_onay_durum == False` ise süreç `Reddedildi` olarak kapanır.
+- `finans_onay_durum == False` ise süreç `Reddedildi` olarak kapanır.
+- `gm_onay_durum == True` ise süreç `Onaylandı` olarak kapanır.
+- `gm_onay_durum == False` ise süreç `Reddedildi` olarak kapanır.
 
-6. forms/gm_onay.json (Stage 5: General Manager / CFO Final Approval Form):
-- Fields: gm_onay_durum (boolean, default true), gm_gerekce (textarea).
+## SpiffWorkflow Notları
 
-7. hakedis_onay_sureci.bpmn:
-- Generate a fully valid BPMN 2.0 XML incorporating the new 5-stage sequential flow with rejections.
-- The pipeline MUST be: 
-  Start Event -> 
-  User Task (Saha Hakediş Girişi - forms/hakedis_giris.json) -> 
-  User Task (İSG Kontrolü - forms/hse_kontrol.json) -> 
-  User Task (PM Onayı - forms/pm_onay.json) -> 
-  Exclusive Gateway (PM Karar: if false -> End Reject) -> 
-  User Task (Finans Ön Kontrol - forms/finans_kontrol.json) -> 
-  Exclusive Gateway (Finans Karar: if false -> End Reject) ->
-  User Task (GM Final Onayı - forms/gm_onay.json) -> 
-  Exclusive Gateway (GM Karar: if true -> End Approved, if false -> End Reject)
-- Injection of `<spiffworkflow:properties>` extension elements with exact form file paths for all 5 User Tasks is MANDATORY.
-- Gateway routing sequences must use strict Python syntax expressions (e.g., `pm_onay_durum == True`, `finans_onay_durum == False`).
-- Programmatically calculate and generate all visual DI coordinates (BPMNDiagram, Shapes, and Edges) so it opens flawlessly in the SpiffWorkflow BPMN designer.
-
-Do not write placeholders, step-by-step lists, or snippets. Act as a live vibe coding agent: construct the directory structure and write the complete code directly into the workspace files right now.
+Tüm kullanıcı görevlerinde `spiffworkflow:properties` altında `formJsonSchemaFilename` tanımlıdır. BPMN içindeki kullanıcı talimatları, sonraki onay adımlarında önceki aşama verilerini özet olarak gösterir.
