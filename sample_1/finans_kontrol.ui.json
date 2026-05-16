@@ -1,5 +1,158 @@
 {
   "ui:classNames": "modern-process-form finance-review-form",
+  "ui:field": "LayoutGridField",
+  "ui:layoutGrid": {
+    "ui:row": {
+      "spacing": 2,
+      "sx": {
+        "p": 2.5,
+        "borderRadius": "18px",
+        "background": "linear-gradient(135deg, #111827 0%, #172554 50%, #0f172a 100%)",
+        "border": "1px solid rgba(148, 163, 184, 0.24)",
+        "boxShadow": "0 22px 55px rgba(2, 6, 23, 0.28)",
+        "& .MuiFormControl-root, & .MuiTextField-root": {
+          "width": "100%"
+        },
+        "& .MuiInputBase-root": {
+          "backgroundColor": "rgba(255, 255, 255, 0.08)",
+          "borderRadius": "12px",
+          "color": "#f8fafc"
+        },
+        "& input, & textarea": {
+          "color": "#f8fafc"
+        },
+        "& .MuiInputLabel-root, & .MuiFormLabel-root, & .MuiTypography-root": {
+          "color": "#e2e8f0"
+        },
+        "& .MuiFormHelperText-root": {
+          "color": "#94a3b8"
+        },
+        "& .MuiOutlinedInput-notchedOutline": {
+          "borderColor": "rgba(148, 163, 184, 0.38)"
+        },
+        "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+          "borderColor": "#a78bfa"
+        },
+        "& .MuiCheckbox-root, & .MuiSvgIcon-root": {
+          "color": "#c4b5fd"
+        },
+        "& .MuiFormControlLabel-label": {
+          "color": "#e5e7eb"
+        }
+      },
+      "children": [
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 4
+            },
+            "children": [
+              "fatura_no"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 4
+            },
+            "children": [
+              "fatura_tarihi"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 4
+            },
+            "children": [
+              "cari_hesap_mutabik_mi"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 4
+            },
+            "children": [
+              "stopaj_tutari"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 4
+            },
+            "children": [
+              "kdv_tutari"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 4
+            },
+            "children": [
+              "net_odeme_tutari"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 4
+            },
+            "children": [
+              "onerilen_odeme_tarihi"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 4
+            },
+            "children": [
+              "finans_onay_durum"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 4
+            },
+            "children": [
+              "vergi_borcu_yoktur_belgesi"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12
+            },
+            "children": [
+              "finans_notlari"
+            ]
+          }
+        }
+      ]
+    }
+  },
   "ui:order": [
     "fatura_no",
     "fatura_tarihi",

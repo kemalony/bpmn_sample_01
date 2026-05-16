@@ -1,5 +1,104 @@
 {
   "ui:classNames": "modern-process-form pm-approval-form",
+  "ui:field": "LayoutGridField",
+  "ui:layoutGrid": {
+    "ui:row": {
+      "spacing": 2,
+      "sx": {
+        "p": 2.5,
+        "borderRadius": "18px",
+        "background": "linear-gradient(135deg, #0f172a 0%, #1e293b 55%, #111827 100%)",
+        "border": "1px solid rgba(148, 163, 184, 0.24)",
+        "boxShadow": "0 22px 55px rgba(2, 6, 23, 0.28)",
+        "& .MuiFormControl-root, & .MuiTextField-root": {
+          "width": "100%"
+        },
+        "& .MuiInputBase-root": {
+          "backgroundColor": "rgba(255, 255, 255, 0.08)",
+          "borderRadius": "12px",
+          "color": "#f8fafc"
+        },
+        "& input, & textarea": {
+          "color": "#f8fafc"
+        },
+        "& .MuiInputLabel-root, & .MuiFormLabel-root, & .MuiTypography-root": {
+          "color": "#e2e8f0"
+        },
+        "& .MuiFormHelperText-root": {
+          "color": "#94a3b8"
+        },
+        "& .MuiOutlinedInput-notchedOutline": {
+          "borderColor": "rgba(148, 163, 184, 0.38)"
+        },
+        "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+          "borderColor": "#60a5fa"
+        },
+        "& .MuiCheckbox-root, & .MuiSvgIcon-root": {
+          "color": "#93c5fd"
+        },
+        "& .MuiFormControlLabel-label": {
+          "color": "#e5e7eb"
+        }
+      },
+      "children": [
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 4
+            },
+            "children": [
+              "imalat_uygun_mu"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 4
+            },
+            "children": [
+              "metraj_uygun_mu"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 4
+            },
+            "children": [
+              "pm_onay_durum"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 5
+            },
+            "children": [
+              "revize_hakedis_tutari"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 7
+            },
+            "children": [
+              "pm_gerekce"
+            ]
+          }
+        }
+      ]
+    }
+  },
   "ui:order": [
     "imalat_uygun_mu",
     "metraj_uygun_mu",

@@ -1,5 +1,224 @@
 {
   "ui:classNames": "modern-process-form hakedis-entry-form",
+  "ui:field": "LayoutGridField",
+  "ui:layoutGrid": {
+    "ui:row": {
+      "spacing": 2,
+      "sx": {
+        "p": 2.5,
+        "borderRadius": "18px",
+        "background": "linear-gradient(135deg, #0f172a 0%, #162033 52%, #0b1120 100%)",
+        "border": "1px solid rgba(148, 163, 184, 0.24)",
+        "boxShadow": "0 22px 55px rgba(2, 6, 23, 0.28)",
+        "& .MuiFormControl-root, & .MuiTextField-root": {
+          "width": "100%"
+        },
+        "& .MuiInputBase-root": {
+          "backgroundColor": "rgba(255, 255, 255, 0.08)",
+          "borderRadius": "12px",
+          "color": "#f8fafc"
+        },
+        "& input, & textarea": {
+          "color": "#f8fafc"
+        },
+        "& .MuiInputLabel-root, & .MuiFormLabel-root, & .MuiTypography-root": {
+          "color": "#e2e8f0"
+        },
+        "& .MuiFormHelperText-root": {
+          "color": "#94a3b8"
+        },
+        "& .MuiOutlinedInput-notchedOutline": {
+          "borderColor": "rgba(148, 163, 184, 0.38)"
+        },
+        "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+          "borderColor": "#38bdf8"
+        },
+        "& .MuiSlider-root": {
+          "color": "#38bdf8"
+        },
+        "& .MuiRadio-root, & .MuiCheckbox-root, & .MuiSvgIcon-root": {
+          "color": "#93c5fd"
+        },
+        "& .MuiFormControlLabel-label": {
+          "color": "#e5e7eb"
+        }
+      },
+      "children": [
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 6,
+              "lg": 3
+            },
+            "children": [
+              "hakedis_no"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 6,
+              "lg": 3
+            },
+            "children": [
+              "sozlesme_no"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 6,
+              "lg": 3
+            },
+            "children": [
+              "proje_adi"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 6,
+              "lg": 3
+            },
+            "children": [
+              "taseron_firma"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 4,
+              "lg": 3
+            },
+            "children": [
+              "donem"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 4,
+              "lg": 3
+            },
+            "children": [
+              "onceki_hakedis_tutari"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 4,
+              "lg": 3
+            },
+            "children": [
+              "talep_edilen_tutar"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 6,
+              "lg": 2
+            },
+            "children": [
+              "kdv_orani"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 6,
+              "lg": 4
+            },
+            "children": [
+              "bu_donem_imalat_orani"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12
+            },
+            "children": [
+              "isin_kapsami"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12
+            },
+            "children": [
+              "aciklama"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 6
+            },
+            "children": [
+              "metraj_cetveli"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 6
+            },
+            "children": [
+              "imzali_hakedis_kapagi"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 6
+            },
+            "children": [
+              "saha_fotograflari"
+            ]
+          }
+        },
+        {
+          "ui:col": {
+            "size": {
+              "xs": 12,
+              "md": 6
+            },
+            "children": [
+              "ek_belgeler"
+            ]
+          }
+        }
+      ]
+    }
+  },
   "ui:order": [
     "hakedis_no",
     "sozlesme_no",
