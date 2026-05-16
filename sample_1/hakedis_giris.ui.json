@@ -1,0 +1,92 @@
+{
+  "ui:classNames": "modern-process-form hakedis-entry-form",
+  "ui:order": [
+    "hakedis_no",
+    "sozlesme_no",
+    "proje_adi",
+    "taseron_firma",
+    "donem",
+    "isin_kapsami",
+    "onceki_hakedis_tutari",
+    "talep_edilen_tutar",
+    "bu_donem_imalat_orani",
+    "kdv_orani",
+    "aciklama",
+    "metraj_cetveli",
+    "imzali_hakedis_kapagi",
+    "saha_fotograflari",
+    "ek_belgeler"
+  ],
+  "hakedis_no": {
+    "ui:autofocus": true,
+    "ui:placeholder": "HKD-2026-005"
+  },
+  "sozlesme_no": {
+    "ui:placeholder": "SOZ-2026-018"
+  },
+  "proje_adi": {
+    "ui:placeholder": "Proje seçin",
+    "ui:widget": "select"
+  },
+  "taseron_firma": {
+    "ui:placeholder": "Taşeron firma ünvanı"
+  },
+  "donem": {
+    "ui:placeholder": "05/2026",
+    "ui:help": "Ay ve yıl bilgisini MM/YYYY formatında girin."
+  },
+  "isin_kapsami": {
+    "ui:placeholder": "İmalat kalemlerini, mahal/blok bilgilerini ve bu dönem tamamlanan ana işleri yazın.",
+    "ui:widget": "textarea",
+    "ui:options": {
+      "rows": 5
+    }
+  },
+  "onceki_hakedis_tutari": {
+    "ui:placeholder": "0"
+  },
+  "talep_edilen_tutar": {
+    "ui:placeholder": "1250000"
+  },
+  "bu_donem_imalat_orani": {
+    "ui:widget": "range",
+    "ui:help": "Bu dönem gerçekleşme oranını 0 ile 100 arasında seçin."
+  },
+  "kdv_orani": {
+    "ui:widget": "radio",
+    "ui:options": {
+      "inline": true
+    }
+  },
+  "aciklama": {
+    "ui:placeholder": "Hakedişle ilgili ek saha açıklaması.",
+    "ui:widget": "textarea",
+    "ui:options": {
+      "rows": 3
+    }
+  },
+  "metraj_cetveli": {
+    "ui:widget": "file",
+    "ui:options": {
+      "accept": ".xls,.xlsx"
+    }
+  },
+  "imzali_hakedis_kapagi": {
+    "ui:widget": "file",
+    "ui:options": {
+      "accept": ".pdf,.jpg,.jpeg,.png"
+    }
+  },
+  "saha_fotograflari": {
+    "ui:widget": "file",
+    "ui:options": {
+      "accept": ".pdf,.jpg,.jpeg,.png"
+    }
+  },
+  "ek_belgeler": {
+    "ui:widget": "file",
+    "ui:options": {
+      "accept": ".pdf,.xls,.xlsx,.doc,.docx,.jpg,.jpeg,.png"
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "ui:classNames": "modern-process-form executive-approval-form",
+  "ui:order": [
+    "final_onay_tutari",
+    "odeme_onceligi",
+    "gm_onay_durum",
+    "gm_gerekce",
+    "yonetim_notu"
+  ],
+  "final_onay_tutari": {
+    "ui:placeholder": "Final ödeme tutarı"
+  },
+  "odeme_onceligi": {
+    "ui:widget": "radio",
+    "ui:options": {
+      "inline": true
+    }
+  },
+  "gm_onay_durum": {
+    "ui:widget": "checkbox",
+    "ui:help": "İşaretli ise süreç onaylanır; kapalı ise süreç reddedilir."
+  },
+  "gm_gerekce": {
+    "ui:placeholder": "Nihai karar gerekçesi.",
+    "ui:widget": "textarea",
+    "ui:options": {
+      "rows": 4
+    }
+  },
+  "yonetim_notu": {
+    "ui:placeholder": "Ödeme zamanı, öncelik veya sözleşmesel kayıt için yönetim notu.",
+    "ui:widget": "textarea",
+    "ui:options": {
+      "rows": 4
+    }
+  }
+}

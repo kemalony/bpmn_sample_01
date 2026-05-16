@@ -1,0 +1,32 @@
+{
+  "ui:classNames": "modern-process-form pm-approval-form",
+  "ui:order": [
+    "imalat_uygun_mu",
+    "metraj_uygun_mu",
+    "revize_hakedis_tutari",
+    "pm_onay_durum",
+    "pm_gerekce"
+  ],
+  "imalat_uygun_mu": {
+    "ui:widget": "checkbox",
+    "ui:help": "İmalat sözleşme kapsamı ve proje gereklilikleriyle uyumluysa işaretli bırakın."
+  },
+  "metraj_uygun_mu": {
+    "ui:widget": "checkbox",
+    "ui:help": "Metraj ve gerçekleşme oranı saha kayıtlarıyla tutarlıysa işaretli bırakın."
+  },
+  "revize_hakedis_tutari": {
+    "ui:placeholder": "Talep edilen veya revize edilen tutar"
+  },
+  "pm_onay_durum": {
+    "ui:widget": "checkbox",
+    "ui:help": "İşaretli ise finans ön kontrolüne geçer; kapalı ise süreç reddedilir."
+  },
+  "pm_gerekce": {
+    "ui:placeholder": "Teknik karar gerekçesi, revizyon nedeni veya red açıklaması.",
+    "ui:widget": "textarea",
+    "ui:options": {
+      "rows": 5
+    }
+  }
+}

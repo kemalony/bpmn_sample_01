@@ -1,0 +1,51 @@
+{
+  "ui:classNames": "modern-process-form hse-review-form",
+  "ui:order": [
+    "isg_denetim_tarihi",
+    "isg_ihlal_var_mi",
+    "isg_risk_seviyesi",
+    "acik_aksiyon_sayisi",
+    "aksiyon_kapanis_durumu",
+    "kesinti_tutari",
+    "isg_raporu",
+    "hse_notlari"
+  ],
+  "isg_denetim_tarihi": {
+    "ui:widget": "date"
+  },
+  "isg_ihlal_var_mi": {
+    "ui:widget": "checkbox",
+    "ui:help": "İş güvenliği ihlali tespit edildiyse işaretleyin."
+  },
+  "isg_risk_seviyesi": {
+    "ui:widget": "radio",
+    "ui:options": {
+      "inline": true
+    }
+  },
+  "acik_aksiyon_sayisi": {
+    "ui:placeholder": "0"
+  },
+  "aksiyon_kapanis_durumu": {
+    "ui:widget": "radio",
+    "ui:options": {
+      "inline": true
+    }
+  },
+  "kesinti_tutari": {
+    "ui:placeholder": "0"
+  },
+  "isg_raporu": {
+    "ui:widget": "file",
+    "ui:options": {
+      "accept": ".pdf"
+    }
+  },
+  "hse_notlari": {
+    "ui:placeholder": "Denetim bulguları, açık aksiyonlar ve ödeme kesintisine konu olabilecek notlar.",
+    "ui:widget": "textarea",
+    "ui:options": {
+      "rows": 5
+    }
+  }
+}

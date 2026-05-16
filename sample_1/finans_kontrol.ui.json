@@ -1,0 +1,54 @@
+{
+  "ui:classNames": "modern-process-form finance-review-form",
+  "ui:order": [
+    "fatura_no",
+    "fatura_tarihi",
+    "cari_hesap_mutabik_mi",
+    "vergi_borcu_yoktur_belgesi",
+    "stopaj_tutari",
+    "kdv_tutari",
+    "net_odeme_tutari",
+    "onerilen_odeme_tarihi",
+    "finans_onay_durum",
+    "finans_notlari"
+  ],
+  "fatura_no": {
+    "ui:placeholder": "FTR-2026-000123"
+  },
+  "fatura_tarihi": {
+    "ui:widget": "date"
+  },
+  "cari_hesap_mutabik_mi": {
+    "ui:widget": "checkbox",
+    "ui:help": "Cari mutabakat uygunsa işaretli bırakın."
+  },
+  "vergi_borcu_yoktur_belgesi": {
+    "ui:widget": "file",
+    "ui:options": {
+      "accept": ".pdf"
+    }
+  },
+  "stopaj_tutari": {
+    "ui:placeholder": "0"
+  },
+  "kdv_tutari": {
+    "ui:placeholder": "0"
+  },
+  "net_odeme_tutari": {
+    "ui:placeholder": "Net ödeme tutarı"
+  },
+  "onerilen_odeme_tarihi": {
+    "ui:widget": "date"
+  },
+  "finans_onay_durum": {
+    "ui:widget": "checkbox",
+    "ui:help": "İşaretli ise GM / CFO final onayına geçer; kapalı ise süreç reddedilir."
+  },
+  "finans_notlari": {
+    "ui:placeholder": "Fatura, cari hesap, yasal kesinti veya ödeme planı notları.",
+    "ui:widget": "textarea",
+    "ui:options": {
+      "rows": 5
+    }
+  }
+}
