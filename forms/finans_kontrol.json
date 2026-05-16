@@ -1,0 +1,29 @@
+{
+  "title": "Finans Ön Kontrol",
+  "description": "Muhasebe / finans ekibi tarafından taşeron belge ve ödeme uygunluk kontrolünün yapılması.",
+  "type": "object",
+  "properties": {
+    "vergi_borcu_yoktur_belgesi": {
+      "type": "string",
+      "title": "Vergi Borcu Yoktur Belgesi",
+      "description": "Taşeronun güncel vergi borcu yoktur yazısı",
+      "format": "data-url",
+      "contentEncoding": "base64",
+      "ui:widget": "file"
+    },
+    "finans_onay_durum": {
+      "type": "boolean",
+      "title": "Finans Onay Durumu",
+      "default": true
+    },
+    "finans_notlari": {
+      "type": "string",
+      "title": "Finans Notları",
+      "ui:widget": "textarea"
+    }
+  },
+  "required": [
+    "vergi_borcu_yoktur_belgesi",
+    "finans_onay_durum"
+  ]
+}

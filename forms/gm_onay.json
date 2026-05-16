@@ -1,0 +1,21 @@
+{
+  "title": "GM / CFO Final Onayı",
+  "description": "Genel müdür veya CFO tarafından hakediş talebinin nihai onayının verilmesi.",
+  "type": "object",
+  "properties": {
+    "gm_onay_durum": {
+      "type": "boolean",
+      "title": "GM / CFO Onay Durumu",
+      "default": true
+    },
+    "gm_gerekce": {
+      "type": "string",
+      "title": "GM / CFO Gerekçe / Not",
+      "ui:widget": "textarea"
+    }
+  },
+  "required": [
+    "gm_onay_durum",
+    "gm_gerekce"
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "title": "Saha Hakediş Girişi",
+  "description": "Saha mühendisi tarafından hakediş talebinin ve destekleyici dosyaların girilmesi.",
+  "type": "object",
+  "properties": {
+    "proje_adi": {
+      "type": "string",
+      "title": "Proje Adı",
+      "enum": [
+        "Kuleli Konakları",
+        "Çengelköy Rezidans",
+        "Kadıköy Ofis Park"
+      ]
+    },
+    "taseron_firma": {
+      "type": "string",
+      "title": "Taşeron Firma"
+    },
+    "donem": {
+      "type": "string",
+      "title": "Dönem",
+      "description": "MM/YYYY formatında girin.",
+      "pattern": "^(0[1-9]|1[0-2])/[0-9]{4}$",
+      "examples": [
+        "05/2026"
+      ]
+    },
+    "talep_edilen_tutar": {
+      "type": "number",
+      "title": "Talep Edilen Tutar (TL)",
+      "minimum": 0
+    },
+    "aciklama": {
+      "type": "string",
+      "title": "Açıklama",
+      "ui:widget": "textarea"
+    },
+    "metraj_cetveli": {
+      "type": "string",
+      "title": "Metraj Cetveli",
+      "description": "Excel formatında metraj cetveli yükleyin",
+      "format": "data-url",
+      "contentEncoding": "base64",
+      "ui:widget": "file"
+    },
+    "saha_fotograflari": {
+      "type": "string",
+      "title": "Saha Fotoğrafları / PDF Raporu",
+      "description": "Yapılan imalatın fotoğrafları veya PDF raporu",
+      "format": "data-url",
+      "contentEncoding": "base64",
+      "ui:widget": "file"
+    }
+  },
+  "required": [
+    "proje_adi",
+    "taseron_firma",
+    "donem",
+    "talep_edilen_tutar",
+    "aciklama",
+    "metraj_cetveli",
+    "saha_fotograflari"
+  ]
+}

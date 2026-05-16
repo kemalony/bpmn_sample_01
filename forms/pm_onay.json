@@ -1,0 +1,21 @@
+{
+  "title": "PM Onayı",
+  "description": "Proje müdürü önceki aşama verilerini inceleyerek hakediş talebini onaylar veya reddeder.",
+  "type": "object",
+  "properties": {
+    "pm_onay_durum": {
+      "type": "boolean",
+      "title": "PM Onay Durumu",
+      "default": true
+    },
+    "pm_gerekce": {
+      "type": "string",
+      "title": "PM Gerekçe / Not",
+      "ui:widget": "textarea"
+    }
+  },
+  "required": [
+    "pm_onay_durum",
+    "pm_gerekce"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "title": "İSG Kontrolü",
+  "description": "İSG uzmanı tarafından hakediş dönemine ait güvenlik kontrollerinin kaydedilmesi.",
+  "type": "object",
+  "properties": {
+    "isg_ihlal_var_mi": {
+      "type": "boolean",
+      "title": "İSG İhlali Var mı?",
+      "default": false
+    },
+    "kesinti_tutari": {
+      "type": "number",
+      "title": "İSG İhlal Kesinti Tutarı (TL)",
+      "minimum": 0,
+      "default": 0
+    },
+    "isg_raporu": {
+      "type": "string",
+      "title": "İSG Raporu",
+      "description": "Aylık İSG Denetim Raporu PDF",
+      "format": "data-url",
+      "contentEncoding": "base64",
+      "ui:widget": "file"
+    },
+    "hse_notlari": {
+      "type": "string",
+      "title": "HSE / İSG Notları",
+      "ui:widget": "textarea"
+    }
+  },
+  "required": [
+    "isg_ihlal_var_mi",
+    "hse_notlari"
+  ]
+}

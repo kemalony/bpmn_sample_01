@@ -1,0 +1,28 @@
+{
+  "id": "insaat_hakedis_sureci",
+  "process_id": "insaat_hakedis_sureci",
+  "display_name": "İnşaat Hakediş Kontrol ve Onay Süreci",
+  "description": "İnşaat hakediş taleplerinin saha girişi, İSG kontrolü, proje müdürü onayı, finans ön kontrolü ve genel müdür/CFO final onayı ile yürütülmesi.",
+  "primary_file_name": "hakedis_onay_sureci.bpmn",
+  "primary_process_id": "insaat_hakedis_sureci",
+  "metadata_extraction_paths": [
+    {
+      "key": "proje_adi",
+      "path": "proje_adi"
+    },
+    {
+      "key": "taseron_firma",
+      "path": "taseron_firma"
+    },
+    {
+      "key": "donem",
+      "path": "donem"
+    },
+    {
+      "key": "talep_edilen_tutar",
+      "path": "talep_edilen_tutar"
+    }
+  ],
+  "exception_notification_addresses": [],
+  "fault_or_suspend_on_exception": "fault"
+}
